@@ -1,34 +1,24 @@
-FROM debian:bullseye
+FROM ab3k/debian-dev:latest
 
-ENV LANG C.UTF-8
-ENV LC_ALL C.UTF-8
-ENV KERL_CONFIGURE_OPTIONS "--without-javac --without-wx --without-odbc"
-ENV KERL_BUILD_DOCS no
-ENV KERL_INSTALL_HTMLDOCS no
-ENV KERL_INSTALL_MANPAGES no
+ARG DEBIAN_FRONTEND=noninteractive 
+ARG KERL_CONFIGURE_OPTIONS="--without-javac --without-wx --without-odbc"
+ARG KERL_BUILD_DOCS=no
+ARG KERL_INSTALL_HTMLDOCS=no
+ARG KERL_INSTALL_MANPAGES=no
 
-# slirp4netns for podman
-# unzip for unpacking elixir releases
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+
 RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-recommends -yq \
       build-essential \
-      curl \
-      git \
-      inotify-tools \
-      psmisc \
-      procps \
-      unzip \
-      && apt-get clean
-
-RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-recommends -yq \
-      ca-certificates \
-      less \
       autoconf \
-      m4 \
       automake \
-      libncurses5-dev \
-      libssh-dev \
+      inotify-tools \
       libncurses-dev \
+      libssh-dev \
       locales \
+      m4 \
+      unzip \
       && apt-get clean
 
 RUN git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.9.0
