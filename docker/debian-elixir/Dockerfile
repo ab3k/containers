@@ -39,6 +39,8 @@ RUN bash -c "source /home/elixir/.asdf/asdf.sh && asdf list"
 
 COPY tool-versions /home/elixir/.tool-versions
 
+RUN bash -c "source /home/elixir/.asdf/asdf.sh && mix local.hex --force && mix local.rebar --force && mix archive.install hex phx_new"
+
 RUN mkdir -p /home/elixir/.config/fish/conf.d
 
 COPY asdf.fish /home/elixir/.config/fish/conf.d/
