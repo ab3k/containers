@@ -28,12 +28,12 @@ USER elixir
 
 WORKDIR /home/elixir
 
-RUN git clone https://github.com/asdf-vm/asdf.git /home/elixir/.asdf -c advice.detachedHead=false --depth 1 --branch v0.9.0
+RUN git clone https://github.com/asdf-vm/asdf.git /home/elixir/.asdf -c advice.detachedHead=false --depth 1 --branch v0.10.2
 
 RUN bash -c "source /home/elixir/.asdf/asdf.sh && asdf plugin add erlang https://github.com/asdf-vm/asdf-erlang.git && asdf plugin add elixir https://github.com/asdf-vm/asdf-elixir.git"
 
-RUN bash -c "source /home/elixir/.asdf/asdf.sh && asdf install erlang 24.0.6"
-RUN bash -c "source /home/elixir/.asdf/asdf.sh && asdf install elixir 1.13.1-otp-24"
+RUN bash -c "source /home/elixir/.asdf/asdf.sh && asdf install erlang 24.1.7"
+RUN bash -c "source /home/elixir/.asdf/asdf.sh && asdf install elixir 1.13.4-otp-24"
 
 RUN bash -c "source /home/elixir/.asdf/asdf.sh && asdf list"
 
