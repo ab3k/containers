@@ -21,14 +21,24 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
       unzip \
       && apt-get clean
 
-RUN git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.9.0
+RUN groupadd elixir \
+      && useradd --no-log-init --home /home/elixir --create-home -g elixir elixir
 
-RUN bash -c "source /root/.asdf/asdf.sh && asdf plugin add erlang https://github.com/asdf-vm/asdf-erlang.git && asdf plugin add elixir https://github.com/asdf-vm/asdf-elixir.git"
+USER elixir
 
-RUN bash -c "source /root/.asdf/asdf.sh && asdf install erlang 24.0.6 && asdf install elixir 1.13.1-otp-24"
+WORKDIR /home/elixir
 
-COPY bashrc /root/.bashrc
+RUN git clone https://github.com/asdf-vm/asdf.git /home/elixir/.asdf -c advice.detachedHead=false --depth 1 --branch v0.9.0
 
-COPY tool-versions /root/.tool-versions
+RUN bash -c "source /home/elixir/.asdf/asdf.sh && asdf plugin add erlang https://github.com/asdf-vm/asdf-erlang.git && asdf plugin add elixir https://github.com/asdf-vm/asdf-elixir.git"
+
+RUN bash -c "source /home/elixir/.asdf/asdf.sh && asdf install erlang 24.0.6"
+RUN bash -c "source /home/elixir/.asdf/asdf.sh && asdf install elixir 1.13.1-otp-24"
+
+RUN bash -c "source /home/elixir/.asdf/asdf.sh && asdf list"
+
+COPY bashrc /home/elixir/.bashrc
+
+COPY tool-versions /home/elixir/.tool-versions
 
 CMD ["bash"]
