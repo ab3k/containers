@@ -19,7 +19,8 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
       locales \
       m4 \
       unzip \
-      && apt-get clean
+      && apt-get clean \
+      && rm -rf /var/lib/apt/lists/*
 
 RUN groupadd elixir \
       && useradd --no-log-init --shell /usr/bin/fish --home /home/elixir --create-home -g elixir elixir
