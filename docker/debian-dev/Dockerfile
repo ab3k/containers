@@ -7,7 +7,9 @@ ENV LC_ALL=C.UTF-8
 
 RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-recommends -yq \
       apt-utils \
-      && apt-get clean
+      && apt-get clean \
+      && rm -rf /var/lib/apt/lists/*
+
 
 # slirp4netns for podman
 RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-recommends -yq \
@@ -29,6 +31,7 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
       slirp4netns \
       socat \
       tmux \
-      && apt-get clean
+      && apt-get clean \
+      && rm -rf /var/lib/apt/lists/*
 
 CMD ["bash"]
