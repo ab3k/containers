@@ -22,7 +22,7 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
       && apt-get clean
 
 RUN groupadd elixir \
-      && useradd --no-log-init --home /home/elixir --create-home -g elixir elixir
+      && useradd --no-log-init --shell /usr/bin/fish --home /home/elixir --create-home -g elixir elixir
 
 USER elixir
 
@@ -37,8 +37,11 @@ RUN bash -c "source /home/elixir/.asdf/asdf.sh && asdf install elixir 1.13.4-otp
 
 RUN bash -c "source /home/elixir/.asdf/asdf.sh && asdf list"
 
-COPY bashrc /home/elixir/.bashrc
-
 COPY tool-versions /home/elixir/.tool-versions
 
-CMD ["bash"]
+RUN mkdir -p /home/elixir/.config/fish/conf.d
+
+COPY asdf.fish /home/elixir/.config/fish/conf.d/
+COPY iex.fish /home/elixir/.config/fish/conf.d/
+
+CMD ["fish"]
