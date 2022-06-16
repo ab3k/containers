@@ -1,4 +1,4 @@
-FROM ab3k/debian-dev:latest
+FROM ab3k/debian-dev:bullseye
 
 ARG DEBIAN_FRONTEND=noninteractive 
 ARG KERL_CONFIGURE_OPTIONS="--without-javac --without-wx --without-odbc"
