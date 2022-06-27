@@ -10,12 +10,12 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
       && apt-get clean \
       && rm -rf /var/lib/apt/lists/*
 
-
 # slirp4netns for podman
 RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-recommends -yq \
       ca-certificates \
       curl \
       direnv \
+      file \
       fish \
       git \
       iproute2 \
@@ -31,6 +31,16 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
       slirp4netns \
       socat \
       tmux \
+      && apt-get clean \
+      && rm -rf /var/lib/apt/lists/*
+
+COPY evilmartians-lefthook-archive-keyring.gpg /usr/share/keyrings/evilmartians-lefthook-archive-keyring.gpg
+COPY evilmartians-lefthook.list /etc/apt/sources.list.d/evilmartians-lefthook.list
+
+RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-recommends -yq \
+      lefthook \
+      postgresql-client \
+      sqlite3 \
       && apt-get clean \
       && rm -rf /var/lib/apt/lists/*
 
