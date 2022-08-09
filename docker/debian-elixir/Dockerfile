@@ -51,6 +51,9 @@ RUN asdf install elixir ref:v1.13.4 \
       && cd "$(asdf where elixir ref:v1.13.4)" \
       && make clean
 
+RUN asdf plugin add gleam https://github.com/asdf-community/asdf-gleam.git
+RUN asdf install gleam 0.22.1
+
 RUN asdf list
 
 COPY tool-versions /home/elixir/.tool-versions
