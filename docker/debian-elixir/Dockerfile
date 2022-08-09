@@ -9,6 +9,14 @@ ARG KERL_INSTALL_MANPAGES=no
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
 
+# Key from https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+# Needs to be transformed for apt keyrings with:
+#   cat nodesource.gpg.key  | gpg --dearmor > nodesource.gpg
+COPY nodesource.gpg.key nodesource.gpg /root/
+COPY nodesource.gpg /usr/share/keyrings/nodesource.gpg
+COPY nodesource.list /etc/apt/sources.list.d/nodesource.list
+COPY nodesource.pref /etc/apt/preferences.d/nodesource
+
 RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-recommends -yq \
       build-essential \
       autoconf \
@@ -17,6 +25,7 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
       libncurses-dev \
       libssh-dev \
       locales \
+      nodejs \
       m4 \
       unzip \
       && apt-get clean \
