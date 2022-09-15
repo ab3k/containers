@@ -59,8 +59,9 @@ RUN asdf list
 COPY tool-versions /home/elixir/.tool-versions
 
 RUN mix local.hex --force \
-      && mix local.rebar --force \
-      && mix archive.install hex phx_new
+      && mix local.rebar --force
+
+RUN mix archive.install --force hex phx_new
 
 RUN mkdir -p /home/elixir/.config/fish/conf.d
 COPY asdf.fish iex.fish /home/elixir/.config/fish/conf.d/
