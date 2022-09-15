@@ -43,12 +43,12 @@ SHELL ["bash", "-c"]
 ARG BASH_ENV=/home/elixir/.asdf/asdf.sh
 
 RUN asdf plugin add erlang https://github.com/asdf-vm/asdf-erlang.git
-RUN asdf install erlang 24.1.7
+RUN asdf install erlang 24.3.4.5
 
-ARG ASDF_ERLANG_VERSION=24.1.7
+ARG ASDF_ERLANG_VERSION=24.3.4.5
 RUN asdf plugin add elixir https://github.com/asdf-vm/asdf-elixir.git
-RUN asdf install elixir ref:v1.13.4 \
-      && cd "$(asdf where elixir ref:v1.13.4)" \
+RUN asdf install elixir ref:v1.14.0 \
+      && cd "$(asdf where elixir ref:v1.14.0)" \
       && make clean
 
 RUN asdf plugin add gleam https://github.com/asdf-community/asdf-gleam.git
