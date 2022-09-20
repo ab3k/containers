@@ -1,0 +1,3 @@
+Package: yarn
+Pin: origin dl.yarnpkg.com
+Pin-Priority: 990
