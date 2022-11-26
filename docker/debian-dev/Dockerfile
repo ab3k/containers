@@ -44,4 +44,10 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
       && apt-get clean \
       && rm -rf /var/lib/apt/lists/*
 
-CMD ["bash"]
+RUN groupadd devel \
+      && useradd --no-log-init --shell /usr/bin/fish --home /home/devel --create-home -g devel devel
+
+USER devel
+WORKDIR /home/devel
+
+CMD ["fish"]
