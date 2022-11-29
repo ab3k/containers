@@ -25,7 +25,6 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
 
 RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-recommends -yq \
       asciidoctor \
-      make \
       pandoc \
       python3-pandocfilters \
       python3-pip \

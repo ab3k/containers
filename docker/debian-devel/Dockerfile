@@ -22,6 +22,7 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
       iputils-ping \
       jq \
       less \
+      make \
       neovim \
       netcat-openbsd \
       procps \

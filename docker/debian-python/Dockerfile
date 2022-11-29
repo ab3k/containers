@@ -9,7 +9,6 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PIP_NO_CACHE_DIR=1
 
 RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-recommends -yq \
-      make \
       python3 \
       python3-pip \
       python3-venv \
