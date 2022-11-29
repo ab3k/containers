@@ -59,4 +59,6 @@ RUN groupadd devel \
 USER devel
 WORKDIR /home/devel
 
+RUN mkdir -p /home/devel/.config/fish/conf.d
+
 CMD ["fish"]
