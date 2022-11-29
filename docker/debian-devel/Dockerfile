@@ -38,6 +38,14 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
 COPY evilmartians-lefthook-archive-keyring.gpg /usr/share/keyrings/evilmartians-lefthook-archive-keyring.gpg
 COPY evilmartians-lefthook.list /etc/apt/sources.list.d/evilmartians-lefthook.list
 
+# Key from https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+# Needs to be transformed for apt keyrings with:
+#   cat nodesource.gpg.key | gpg --dearmor > nodesource.gpg
+COPY nodesource.gpg.key nodesource.gpg /root/
+COPY nodesource.gpg /usr/share/keyrings/nodesource.gpg
+COPY nodesource.list /etc/apt/sources.list.d/nodesource.list
+COPY nodesource.pref /etc/apt/preferences.d/nodesource
+
 RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-recommends -yq \
       lefthook \
       postgresql-client \
