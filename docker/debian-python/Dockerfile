@@ -1,4 +1,4 @@
-FROM ab3k/debian-dev:bullseye
+FROM ab3k/debian-devel:bullseye
 
 ARG DEBIAN_FRONTEND=noninteractive 
 
@@ -8,6 +8,8 @@ ENV LC_ALL C.UTF-8
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PIP_NO_CACHE_DIR=1
 
+USER root
+
 RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-recommends -yq \
       python3 \
       python3-pip \
@@ -15,12 +17,8 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
       && apt-get clean \
       && rm -rf /var/lib/apt/lists/*
 
-RUN groupadd python \
-      && useradd --no-log-init --shell /usr/bin/fish --home /home/python --create-home -g python python
-
-USER python
-
-WORKDIR /home/python
+USER devel
+WORKDIR /home/devel
 
 RUN pip3 install --user --no-warn-script-location \
       black \
@@ -29,7 +27,6 @@ RUN pip3 install --user --no-warn-script-location \
       poetry \
       pytest
 
-RUN mkdir -p /home/python/.config/fish/conf.d
-COPY path.fish /home/python/.config/fish/conf.d/
+COPY path.fish /home/devel/.config/fish/conf.d/path-python.fish
 
 CMD ["fish"]
