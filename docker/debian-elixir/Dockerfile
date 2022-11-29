@@ -12,15 +12,16 @@ ENV LC_ALL=C.UTF-8
 USER root
 
 RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-recommends -yq \
-      build-essential \
       autoconf \
       automake \
+      build-essential \
       inotify-tools \
       libncurses-dev \
+      libncurses5-dev \
       libssh-dev \
       locales \
-      nodejs \
       m4 \
+      nodejs \
       unzip \
       && apt-get clean \
       && rm -rf /var/lib/apt/lists/*
