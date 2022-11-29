@@ -1,4 +1,4 @@
-FROM ab3k/debian-dev:bullseye
+FROM ab3k/debian-devel:bullseye
 
 ARG DEBIAN_FRONTEND=noninteractive 
 ARG KERL_CONFIGURE_OPTIONS="--without-javac --without-wx --without-odbc"
@@ -9,13 +9,7 @@ ARG KERL_INSTALL_MANPAGES=no
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
 
-# Key from https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-# Needs to be transformed for apt keyrings with:
-#   cat nodesource.gpg.key  | gpg --dearmor > nodesource.gpg
-COPY nodesource.gpg.key nodesource.gpg /root/
-COPY nodesource.gpg /usr/share/keyrings/nodesource.gpg
-COPY nodesource.list /etc/apt/sources.list.d/nodesource.list
-COPY nodesource.pref /etc/apt/preferences.d/nodesource
+USER root
 
 RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-recommends -yq \
       build-essential \
@@ -31,16 +25,13 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
       && apt-get clean \
       && rm -rf /var/lib/apt/lists/*
 
-RUN groupadd elixir \
-      && useradd --no-log-init --shell /usr/bin/fish --home /home/elixir --create-home -g elixir elixir
+USER devel
+WORKDIR /home/devel
 
-USER elixir
-WORKDIR /home/elixir
-
-RUN git clone https://github.com/asdf-vm/asdf.git /home/elixir/.asdf -c advice.detachedHead=false --depth 1 --branch v0.10.2
+RUN git clone https://github.com/asdf-vm/asdf.git /home/devel/.asdf -c advice.detachedHead=false --depth 1 --branch v0.10.2
 
 SHELL ["bash", "-c"]
-ARG BASH_ENV=/home/elixir/.asdf/asdf.sh
+ARG BASH_ENV=/home/devel/.asdf/asdf.sh
 
 RUN asdf plugin add erlang https://github.com/asdf-vm/asdf-erlang.git
 RUN asdf install erlang 24.3.4.5
@@ -56,14 +47,13 @@ RUN asdf install gleam 0.22.1
 
 RUN asdf list
 
-COPY tool-versions /home/elixir/.tool-versions
+COPY tool-versions /home/devel/.tool-versions
 
 RUN mix local.hex --force \
       && mix local.rebar --force
 
 RUN mix archive.install --force hex phx_new
 
-RUN mkdir -p /home/elixir/.config/fish/conf.d
-COPY asdf.fish iex.fish /home/elixir/.config/fish/conf.d/
+COPY asdf.fish iex.fish /home/devel/.config/fish/conf.d/
 
 CMD ["fish"]
