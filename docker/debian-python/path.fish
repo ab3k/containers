@@ -1,1 +1,1 @@
-set -gx PATH /home/python/.local/bin $PATH
+set -gx PATH /home/devel/.local/bin $PATH
