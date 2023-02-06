@@ -1,3 +1,8 @@
+FROM debian:bullseye AS builder
+ADD https://github.com/golangci/golangci-lint/releases/download/v1.51.1/golangci-lint-1.51.1-linux-amd64.tar.gz /
+RUN tar xzf /golangci-lint-1.51.1-linux-amd64.tar.gz
+
+
 FROM ab3k/debian-devel:bullseye
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -32,6 +37,9 @@ RUN GOPROXY=https://proxy.golang.org \
       go install golang.org/x/tools/gopls@latest \
       && go install github.com/go-delve/delve/cmd/dlv@latest \
       && go install honnef.co/go/tools/cmd/staticcheck@latest \
+      && go install golang.org/x/tools/cmd/goimports@latest \
       && go clean -modcache
+
+COPY --from=builder /golangci-lint-1.51.1-linux-amd64/golangci-lint /usr/local/bin
 
 CMD ["fish"]
