@@ -1,9 +1,11 @@
-FROM ab3k/debian-dev:bullseye
+FROM ab3k/debian-devel:bullseye
 
 ARG DEBIAN_FRONTEND=noninteractive 
 
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
+
+USER root
 
 RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-recommends -yq \
       texlive \
@@ -26,6 +28,7 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
 RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-recommends -yq \
       asciidoctor \
       pandoc \
+      python3 \
       python3-pandocfilters \
       python3-pip \
       && apt-get clean \
@@ -44,11 +47,7 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
       && apt-get clean \
       && rm -rf /var/lib/apt/lists/*
 
-RUN groupadd pandoc \
-      && useradd --no-log-init --shell /usr/bin/fish --home /home/pandoc --create-home -g pandoc pandoc
-
-USER pandoc
-
-WORKDIR /home/pandoc
+USER devel
+WORKDIR /home/devel
 
 CMD ["fish"]
