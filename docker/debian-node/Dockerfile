@@ -9,7 +9,7 @@ USER root
 
 # Key from https://dl.yarnpkg.com/debian/pubkey.gpg as yarnpkg.gpg.key
 COPY yarnpkg.gpg.key yarnpkg.gpg /root/
-COPY yarnpkg.gpg /usr/share/keyrings/yarnpkg.gpg
+COPY yarnpkg.gpg /etc/apt/keyrings/yarnpkg.gpg
 COPY yarnpkg.list /etc/apt/sources.list.d/yarnpkg.list
 COPY yarnpkg.pref /etc/apt/preferences.d/yarnpkg
 
