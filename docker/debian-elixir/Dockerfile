@@ -29,7 +29,7 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
 USER devel
 WORKDIR /home/devel
 
-RUN git clone https://github.com/asdf-vm/asdf.git /home/devel/.asdf -c advice.detachedHead=false --depth 1 --branch v0.10.2
+RUN git clone https://github.com/asdf-vm/asdf.git /home/devel/.asdf -c advice.detachedHead=false --depth 1 --branch v0.11.1
 
 SHELL ["bash", "-c"]
 ARG BASH_ENV=/home/devel/.asdf/asdf.sh
@@ -40,12 +40,12 @@ RUN asdf install erlang 25.0.4
 ARG ASDF_ERLANG_VERSION=25.0.4
 
 RUN asdf plugin add elixir https://github.com/asdf-vm/asdf-elixir.git
-RUN asdf install elixir ref:v1.14.2 \
-      && cd "$(asdf where elixir ref:v1.14.2)" \
+RUN asdf install elixir ref:v1.14.3 \
+      && cd "$(asdf where elixir ref:v1.14.3)" \
       && make clean
 
 RUN asdf plugin add gleam https://github.com/asdf-community/asdf-gleam.git
-RUN asdf install gleam 0.25.1
+RUN asdf install gleam 0.26.2
 
 RUN asdf list
 
