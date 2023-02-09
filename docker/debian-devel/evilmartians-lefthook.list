@@ -4,6 +4,6 @@
 # Description: Fast and powerful Git hooks manager for any type of projects.
 
 
-deb [signed-by=/usr/share/keyrings/evilmartians-lefthook-archive-keyring.gpg] https://dl.cloudsmith.io/public/evilmartians/lefthook/deb/debian bullseye main
+deb [signed-by=/etc/apt/keyrings/evilmartians-lefthook-archive-keyring.gpg] https://dl.cloudsmith.io/public/evilmartians/lefthook/deb/debian bullseye main
 
-# deb-src [signed-by=/usr/share/keyrings/evilmartians-lefthook-archive-keyring.gpg] https://dl.cloudsmith.io/public/evilmartians/lefthook/deb/debian bullseye main
+# deb-src [signed-by=/etc/apt/keyrings/evilmartians-lefthook-archive-keyring.gpg] https://dl.cloudsmith.io/public/evilmartians/lefthook/deb/debian bullseye main
