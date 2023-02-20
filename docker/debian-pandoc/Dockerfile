@@ -22,6 +22,7 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
       texlive-plain-generic \
       biber \
       latexmk \
+      universal-ctags \
       && apt-get clean \
       && rm -rf /var/lib/apt/lists/*
 
