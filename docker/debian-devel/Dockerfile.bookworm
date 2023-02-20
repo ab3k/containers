@@ -15,9 +15,12 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
       ca-certificates \
       curl \
       direnv \
+      exa \
+      fd-find \
       file \
       fish \
       git \
+      httpie \
       iproute2 \
       iputils-ping \
       jq \
