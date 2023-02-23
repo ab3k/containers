@@ -7,9 +7,13 @@ ENV LC_ALL=C.UTF-8
 
 USER root
 
+# Key from https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+COPY nodesource-archive-keyring.gpg /etc/apt/keyrings/
+COPY nodesource.list /etc/apt/sources.list.d/nodesource.list
+COPY nodesource.pref /etc/apt/preferences.d/nodesource
+
 # Key from https://dl.yarnpkg.com/debian/pubkey.gpg as yarnpkg.gpg.key
-COPY yarnpkg.gpg.key yarnpkg.gpg /root/
-COPY yarnpkg.gpg /etc/apt/keyrings/yarnpkg.gpg
+COPY yarnpkg-archive-keyring.gpg /etc/apt/keyrings/
 COPY yarnpkg.list /etc/apt/sources.list.d/yarnpkg.list
 COPY yarnpkg.pref /etc/apt/preferences.d/yarnpkg
 
