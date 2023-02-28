@@ -6,6 +6,11 @@ ARG KERL_BUILD_DOCS=no
 ARG KERL_INSTALL_HTMLDOCS=no
 ARG KERL_INSTALL_MANPAGES=no
 
+ARG ASDF_VERSION=v0.11.1
+ARG ERLANG_VERSION=25.0.4
+ARG ELIXIR_VERSION=ref:v1.14.3
+ARG GLEAM_VERSION=0.26.2
+
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
 
@@ -34,23 +39,23 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
 USER devel
 WORKDIR /home/devel
 
-RUN git clone https://github.com/asdf-vm/asdf.git /home/devel/.asdf -c advice.detachedHead=false --depth 1 --branch v0.11.1
+RUN git clone https://github.com/asdf-vm/asdf.git /home/devel/.asdf -c advice.detachedHead=false --depth 1 --branch $ASDF_VERSION
 
 SHELL ["bash", "-c"]
 ARG BASH_ENV=/home/devel/.asdf/asdf.sh
 
 RUN asdf plugin add erlang https://github.com/asdf-vm/asdf-erlang.git
-RUN asdf install erlang 25.0.4
+RUN asdf install erlang $ERLANG_VERSION
 
-ARG ASDF_ERLANG_VERSION=25.0.4
+ARG ASDF_ERLANG_VERSION=$ERLANG_VERSION
 
 RUN asdf plugin add elixir https://github.com/asdf-vm/asdf-elixir.git
-RUN asdf install elixir ref:v1.14.3 \
-      && cd "$(asdf where elixir ref:v1.14.3)" \
+RUN asdf install elixir $ELIXIR_VERSION \
+      && cd "$(asdf where elixir $ELIXIR_VERSION)" \
       && make clean
 
 RUN asdf plugin add gleam https://github.com/asdf-community/asdf-gleam.git
-RUN asdf install gleam 0.26.2
+RUN asdf install gleam $GLEAM_VERSION
 
 RUN asdf list
 
