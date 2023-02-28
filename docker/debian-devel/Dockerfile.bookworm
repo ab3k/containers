@@ -28,6 +28,7 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
       make \
       neovim \
       netcat-openbsd \
+      openssh-client \
       procps \
       psmisc \
       python3 \
