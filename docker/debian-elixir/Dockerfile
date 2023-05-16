@@ -10,6 +10,7 @@ ARG ASDF_VERSION=v0.11.2
 ARG ERLANG_VERSION=25.3.2
 ARG ELIXIR_VERSION=ref:v1.14.4
 ARG GLEAM_VERSION=0.28.3
+ARG PHOENIX_VERSION=1.7.2
 
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
@@ -64,7 +65,7 @@ COPY tool-versions /home/devel/.tool-versions
 RUN mix local.hex --force \
       && mix local.rebar --force
 
-RUN mix archive.install --force hex phx_new
+RUN mix archive.install --force hex phx_new $PHOENIX_VERSION
 
 COPY asdf.fish iex.fish /home/devel/.config/fish/conf.d/
 
