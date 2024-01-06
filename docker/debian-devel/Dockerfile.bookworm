@@ -36,6 +36,7 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
       slirp4netns \
       socat \
       tmux \
+      wget \
       && apt-get clean \
       && rm -rf /var/lib/apt/lists/*
 
