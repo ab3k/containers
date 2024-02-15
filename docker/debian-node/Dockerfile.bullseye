@@ -1,4 +1,4 @@
-FROM ab3k/debian-devel:bookworm
+FROM ab3k/debian-devel:bullseye
 
 ARG DEBIAN_FRONTEND=noninteractive 
 
