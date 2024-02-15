@@ -1,6 +1,6 @@
 FROM ab3k/debian-devel:bookworm
 
-ARG DEBIAN_FRONTEND=noninteractive 
+ARG DEBIAN_FRONTEND=noninteractive
 
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8

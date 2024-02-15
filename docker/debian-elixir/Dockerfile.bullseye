@@ -1,6 +1,6 @@
 FROM ab3k/debian-devel:bullseye
 
-ARG DEBIAN_FRONTEND=noninteractive 
+ARG DEBIAN_FRONTEND=noninteractive
 ARG KERL_CONFIGURE_OPTIONS="--without-javac --without-wx --without-odbc"
 ARG KERL_BUILD_DOCS=no
 ARG KERL_INSTALL_HTMLDOCS=no
