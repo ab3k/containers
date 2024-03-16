@@ -42,6 +42,11 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
 
 RUN mkdir -p /etc/apt/keyrings
 
+# Key from https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+COPY nodesource-archive-keyring.gpg /etc/apt/keyrings/
+COPY nodesource.list /etc/apt/sources.list.d/nodesource.list
+COPY nodesource.pref /etc/apt/preferences.d/nodesource
+
 COPY evilmartians-lefthook-archive-keyring.gpg /etc/apt/keyrings/evilmartians-lefthook-archive-keyring.gpg
 COPY evilmartians-lefthook.list /etc/apt/sources.list.d/evilmartians-lefthook.list
 
