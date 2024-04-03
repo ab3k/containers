@@ -11,10 +11,14 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
       hugo \
       nodejs \
       asciidoctor \
+      python3-brotli \
       && apt-get clean \
       && rm -rf /var/lib/apt/lists/*
 
 USER devel
 WORKDIR /home/devel
+
+# Tools for working with fonts, eg. subsetting a woff2
+RUN pipx install fonttools[woff]
 
 CMD ["fish"]
