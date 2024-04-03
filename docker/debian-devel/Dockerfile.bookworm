@@ -30,6 +30,7 @@ RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-r
       netcat-openbsd \
       openssh-client \
       procps \
+      pipx \
       psmisc \
       python3 \
       ripgrep \
@@ -64,5 +65,7 @@ USER devel
 WORKDIR /home/devel
 
 RUN mkdir -p /home/devel/.config/fish/conf.d
+
+COPY path-home-bin.fish /home/devel/.config/fish/conf.d/
 
 CMD ["fish"]
