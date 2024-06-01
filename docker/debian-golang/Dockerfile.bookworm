@@ -1,11 +1,16 @@
+ARG GOLANGCILINT_VERSION=1.57.2
+
 FROM debian:bookworm AS builder
-ADD https://github.com/golangci/golangci-lint/releases/download/v1.57.2/golangci-lint-1.57.2-linux-amd64.tar.gz /
-RUN tar xzf /golangci-lint-1.57.2-linux-amd64.tar.gz
+ARG GOLANGCILINT_VERSION
+ADD https://github.com/golangci/golangci-lint/releases/download/v${GOLANGCILINT_VERSION}/golangci-lint-${GOLANGCILINT_VERSION}-linux-amd64.tar.gz /
+RUN tar xzf /golangci-lint-${GOLANGCILINT_VERSION}-linux-amd64.tar.gz
 
 
 FROM ab3k/debian-devel:bookworm
 
 ARG DEBIAN_FRONTEND=noninteractive
+
+ARG GOLANGCILINT_VERSION
 
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
@@ -38,6 +43,6 @@ RUN GOPROXY=https://proxy.golang.org \
       && go install golang.org/x/tools/cmd/goimports@latest \
       && go clean -modcache
 
-COPY --from=builder /golangci-lint-1.57.2-linux-amd64/golangci-lint /usr/local/bin
+COPY --from=builder /golangci-lint-${GOLANGCILINT_VERSION}-linux-amd64/golangci-lint /usr/local/bin
 
 CMD ["fish"]
