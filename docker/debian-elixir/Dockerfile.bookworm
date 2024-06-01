@@ -6,11 +6,16 @@ ARG KERL_BUILD_DOCS=no
 ARG KERL_INSTALL_HTMLDOCS=no
 ARG KERL_INSTALL_MANPAGES=no
 
+# https://github.com/asdf-vm/asdf/releases
 ARG ASDF_VERSION=v0.14.0
-ARG ERLANG_VERSION=25.3.2.10
-ARG ELIXIR_VERSION=ref:v1.16.2
-ARG GLEAM_VERSION=0.34.1
-ARG PHOENIX_VERSION=1.7.11
+# https://github.com/erlang/otp/releases
+ARG ERLANG_VERSION=26.2.5
+# https://github.com/elixir-lang/elixir/releases
+ARG ELIXIR_VERSION=ref:v1.16.3
+# https://github.com/gleam-lang/gleam/releases
+ARG GLEAM_VERSION=1.2.1
+# https://github.com/phoenixframework/phoenix/blob/main/CHANGELOG.md
+ARG PHOENIX_VERSION=1.7.12
 
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
