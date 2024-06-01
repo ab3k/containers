@@ -1,0 +1,74 @@
+FROM debian:trixie
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+
+RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-recommends -yq \
+      apt-utils \
+      && apt-get clean \
+      && rm -rf /var/lib/apt/lists/*
+
+# slirp4netns for podman
+RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-recommends -yq \
+      ca-certificates \
+      curl \
+      direnv \
+      # fork of exa
+      eza \
+      fd-find \
+      file \
+      fish \
+      git \
+      httpie \
+      iproute2 \
+      iputils-ping \
+      jq \
+      less \
+      make \
+      neovim \
+      netcat-openbsd \
+      openssh-client \
+      procps \
+      pipx \
+      psmisc \
+      python3 \
+      ripgrep \
+      slirp4netns \
+      socat \
+      sq \
+      tmux \
+      wget \
+      zstd \
+      && apt-get clean \
+      && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /etc/apt/keyrings
+
+COPY evilmartians-lefthook-archive-keyring.gpg /etc/apt/keyrings/evilmartians-lefthook-archive-keyring.gpg
+COPY evilmartians-lefthook.list /etc/apt/sources.list.d/evilmartians-lefthook.list
+
+# Key from https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+COPY nodesource-archive-keyring.gpg /etc/apt/keyrings/
+COPY nodesource.list /etc/apt/sources.list.d/nodesource.list
+COPY nodesource.pref /etc/apt/preferences.d/nodesource
+
+RUN apt-get update && apt-get dist-upgrade -yq && apt-get install --no-install-recommends -yq \
+      lefthook \
+      postgresql-client \
+      sqlite3 \
+      && apt-get clean \
+      && rm -rf /var/lib/apt/lists/*
+
+RUN groupadd devel \
+      && useradd --no-log-init --shell /usr/bin/fish --home /home/devel --create-home -g devel devel
+
+USER devel
+WORKDIR /home/devel
+
+RUN mkdir -p /home/devel/.config/fish/conf.d
+
+COPY path-home-bin.fish /home/devel/.config/fish/conf.d/
+
+CMD ["fish"]
